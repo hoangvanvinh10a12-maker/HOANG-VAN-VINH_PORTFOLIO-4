@@ -273,12 +273,25 @@ body.dark .topbar {
 }
 
 .hero h1 {
+  position: relative;
   font-family: 'Playfair Display', serif;
   font-size: clamp(3.25rem, 4.75vw, 5.5rem);
   line-height: 0.95;
   margin: 0;
-  text-shadow: 0 8px 28px rgba(255, 169, 77, 0.12);
+  color: var(--text);
+  text-shadow: 0 0 24px rgba(255, 184, 93, 0.08);
 }
+
+.hero h1::after {
+  content: '';
+  position: absolute;
+  inset: -0.2rem -0.15rem 0 -0.15rem;
+  z-index: -1;
+  background: radial-gradient(circle, rgba(255, 210, 102, 0.18), transparent 55%);
+  opacity: 0.6;
+}
+
+body.dark .hero {
   background: radial-gradient(circle at top left, rgba(255, 209, 102, 0.12), transparent 32%),
               radial-gradient(circle at bottom right, rgba(255, 169, 77, 0.08), transparent 26%),
               linear-gradient(135deg, #151212, #1b1614);
@@ -467,6 +480,12 @@ body.dark .visual-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(255, 168, 70, 0.14);
 }
 
 .project-preview {
@@ -622,6 +641,15 @@ body.dark .gallery-item {
 
 .skill-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.skill-card {
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(255, 169, 77, 0.14);
 }
 
 .skill-card strong {
