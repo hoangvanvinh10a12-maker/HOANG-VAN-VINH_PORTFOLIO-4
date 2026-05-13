@@ -4,6 +4,8 @@ const gallery = document.getElementById('projectGallery');
 const galleryGrid = document.getElementById('galleryGrid');
 const galleryClose = document.getElementById('galleryClose');
 const galleryButtons = document.querySelectorAll('.gallery-button');
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('main > section[id]');
 
 const galleryItems = {
   'bookmark-1': 'Bookmark layout A',
@@ -75,5 +77,24 @@ window.addEventListener('keydown', (event) => {
     closeGallery();
   }
 });
+
+function setActiveLink(targetId) {
+  navLinks.forEach((link) => {
+    link.classList.toggle('active', link.getAttribute('href') === `#${targetId}`);
+  });
+}
+
+const sectionObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setActiveLink(entry.target.id);
+      }
+    });
+  },
+  { threshold: 0.4 }
+);
+
+sections.forEach((section) => sectionObserver.observe(section));
 
 loadTheme();

@@ -53,6 +53,7 @@ button {
 .page-shell {
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
 .topbar {
@@ -75,8 +76,25 @@ body.dark .topbar {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.04em;
+}
+
+.avatar-badge {
+  display: grid;
+  place-items: center;
+  min-width: 2.7rem;
+  min-height: 2.7rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.95), rgba(255, 169, 77, 0.95));
+  color: #1b1307;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 14px 30px rgba(255, 165, 75, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.68);
 }
 
 .main-nav {
@@ -85,15 +103,22 @@ body.dark .topbar {
   flex-wrap: wrap;
 }
 
+
 .main-nav a {
   font-size: 0.95rem;
   color: var(--muted);
-  transition: color 0.25s ease;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .main-nav a:hover,
-.main-nav a:focus-visible {
+.main-nav a:focus-visible,
+.main-nav a.active {
   color: var(--text);
+  transform: translateY(-1px);
+}
+
+.main-nav a.active {
+  font-weight: 600;
 }
 
 .theme-switch {
@@ -119,12 +144,141 @@ body.dark .topbar {
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
-  background: radial-gradient(circle at top left, rgba(255, 169, 77, 0.16), transparent 35%),
-              radial-gradient(circle at bottom right, rgba(255, 209, 102, 0.2), transparent 28%),
-              linear-gradient(135deg, rgba(255, 238, 214, 0.95), rgba(255, 244, 232, 0.95));
+  background: radial-gradient(circle at top left, rgba(255, 169, 77, 0.14), transparent 34%),
+              radial-gradient(circle at bottom right, rgba(255, 209, 102, 0.18), transparent 28%),
+              linear-gradient(135deg, rgba(255, 240, 224, 0.96), rgba(255, 247, 238, 0.98));
 }
 
-body.dark .hero {
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 15% 35%, rgba(255, 202, 120, 0.18), transparent 18%),
+              radial-gradient(circle at 80% 15%, rgba(255, 198, 90, 0.14), transparent 18%);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.hero-scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tree {
+  position: absolute;
+  width: 2.25rem;
+  height: 6.5rem;
+  border-radius: 999px;
+  background: rgba(80, 44, 11, 0.16);
+  box-shadow: 0 0 0 0.75rem rgba(255, 197, 90, 0.08);
+}
+
+.tree::before,
+.tree::after {
+  content: '';
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(255, 198, 97, 0.14);
+}
+
+.tree::before {
+  width: 4rem;
+  height: 3.2rem;
+  top: -1rem;
+  left: -0.9rem;
+}
+
+.tree::after {
+  width: 3.1rem;
+  height: 2.2rem;
+  top: 0.5rem;
+  left: 0.2rem;
+}
+
+.tree-1 {
+  left: 8%;
+  bottom: 10%;
+  transform: scale(0.95);
+}
+
+.tree-2 {
+  right: 12%;
+  bottom: 8%;
+  width: 1.9rem;
+  height: 5.5rem;
+  transform: scale(1.05);
+}
+
+.glow-dot {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: rgba(255, 217, 103, 0.45);
+  filter: blur(0.5px);
+}
+
+.glow-dot-1 {
+  top: 22%;
+  left: 14%;
+}
+
+.glow-dot-2 {
+  top: 12%;
+  right: 22%;
+}
+
+.hero-portrait {
+  position: absolute;
+  top: 40%;
+  right: 3.5rem;
+  width: 260px;
+  height: 260px;
+  z-index: 1;
+}
+
+.avatar-frame {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background: linear-gradient(180deg, rgba(255, 243, 224, 0.95), rgba(255, 204, 127, 0.25));
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 30px 80px rgba(255, 161, 53, 0.18);
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-frame::before {
+  content: '';
+  position: absolute;
+  width: 68%;
+  height: 68%;
+  top: 14%;
+  left: 16%;
+  border-radius: 48% 52% 42% 58% / 45% 46% 54% 55%;
+  background: radial-gradient(circle at 40% 30%, rgba(255, 224, 177, 0.98), transparent 55%);
+  filter: blur(0.2px);
+}
+
+.avatar-frame span {
+  position: relative;
+  z-index: 1;
+  font-size: 4rem;
+  font-weight: 800;
+  color: rgba(40, 18, 8, 0.92);
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.25rem, 4.75vw, 5.5rem);
+  line-height: 0.95;
+  margin: 0;
+  text-shadow: 0 8px 28px rgba(255, 169, 77, 0.12);
+}
   background: radial-gradient(circle at top left, rgba(255, 209, 102, 0.12), transparent 32%),
               radial-gradient(circle at bottom right, rgba(255, 169, 77, 0.08), transparent 26%),
               linear-gradient(135deg, #151212, #1b1614);
@@ -536,6 +690,7 @@ body.dark .gallery-item {
   height: 100%;
   pointer-events: none;
   overflow: hidden;
+  z-index: 0;
 }
 
 .leaf {
@@ -588,6 +743,11 @@ body.dark .gallery-item {
   .hero {
     grid-template-columns: 1fr;
     padding-top: 5rem;
+  }
+
+  .hero-portrait,
+  .hero-scene {
+    display: none;
   }
 
   .hero-visual {
